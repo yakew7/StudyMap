@@ -1,0 +1,24 @@
+[
+  {
+    "id": "mum-community_spot-01",
+    "name": "Sample Study Cafe, Powai",
+    "type": "community_spot",
+    "city": "mumbai",
+    "lat": 19.1176,
+    "lng": 72.9060,
+    "address": "Placeholder address, Powai, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.1176,72.9060",
+    "added_by": "seed"
+  },
+  {
+    "id": "nvm-community_spot-01",
+    "name": "Sample Co-study Space, Nerul",
+    "type": "community_spot",
+    "city": "navi_mumbai",
+    "lat": 19.0350,
+    "lng": 73.0200,
+    "address": "Placeholder address, Nerul, Navi Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0350,73.0200",
+    "added_by": "seed"
+  }
+]

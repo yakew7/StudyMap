@@ -1,0 +1,24 @@
+[
+  {
+    "id": "mum-internet_cafe-01",
+    "name": "Sample Internet Cafe, Kurla",
+    "type": "internet_cafe",
+    "city": "mumbai",
+    "lat": 19.0653,
+    "lng": 72.8794,
+    "address": "Placeholder address, Kurla West, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0653,72.8794",
+    "added_by": "seed"
+  },
+  {
+    "id": "thn-internet_cafe-01",
+    "name": "Sample Cyber Cafe, Kalwa",
+    "type": "internet_cafe",
+    "city": "thane",
+    "lat": 19.1900,
+    "lng": 72.9950,
+    "address": "Placeholder address, Kalwa, Thane",
+    "gmaps_link": "https://maps.google.com/?q=19.1900,72.9950",
+    "added_by": "seed"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "mum-train_station-01",
+    "name": "Chhatrapati Shivaji Maharaj Terminus",
+    "type": "train_station",
+    "city": "mumbai",
+    "lat": 18.9398,
+    "lng": 72.8355,
+    "address": "Fort, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=18.9398,72.8355",
+    "added_by": "seed"
+  },
+  {
+    "id": "thn-train_station-01",
+    "name": "Thane Railway Station",
+    "type": "train_station",
+    "city": "thane",
+    "lat": 19.1860,
+    "lng": 72.9750,
+    "address": "Thane West",
+    "gmaps_link": "https://maps.google.com/?q=19.1860,72.9750",
+    "added_by": "seed"
+  },
+  {
+    "id": "nvm-train_station-01",
+    "name": "Vashi Railway Station",
+    "type": "train_station",
+    "city": "navi_mumbai",
+    "lat": 19.0653,
+    "lng": 73.0008,
+    "address": "Sector 30A, Vashi, Navi Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0653,73.0008",
+    "added_by": "seed"
+  }
+]

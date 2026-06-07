@@ -1,0 +1,35 @@
+[
+  {
+    "id": "mum-book_depot-01",
+    "name": "Sample Book Depot, Dadar",
+    "type": "book_depot",
+    "city": "mumbai",
+    "lat": 19.0186,
+    "lng": 72.8423,
+    "address": "Placeholder address, Dadar West, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0186,72.8423",
+    "added_by": "seed"
+  },
+  {
+    "id": "thn-book_depot-01",
+    "name": "Sample Book House, Naupada",
+    "type": "book_depot",
+    "city": "thane",
+    "lat": 19.1953,
+    "lng": 72.9706,
+    "address": "Placeholder address, Naupada, Thane West",
+    "gmaps_link": "https://maps.google.com/?q=19.1953,72.9706",
+    "added_by": "seed"
+  },
+  {
+    "id": "nvm-book_depot-01",
+    "name": "Sample Books, Vashi",
+    "type": "book_depot",
+    "city": "navi_mumbai",
+    "lat": 19.0771,
+    "lng": 72.9986,
+    "address": "Placeholder address, Sector 17, Vashi",
+    "gmaps_link": "https://maps.google.com/?q=19.0771,72.9986",
+    "added_by": "seed"
+  }
+]

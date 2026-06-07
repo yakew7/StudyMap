@@ -1,0 +1,35 @@
+[
+  {
+    "id": "mum-library-01",
+    "name": "Sample Public Library, Fort",
+    "type": "library",
+    "city": "mumbai",
+    "lat": 18.9322,
+    "lng": 72.8347,
+    "address": "Placeholder address, Fort, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=18.9322,72.8347",
+    "added_by": "seed"
+  },
+  {
+    "id": "thn-library-01",
+    "name": "Sample City Library, Thane West",
+    "type": "library",
+    "city": "thane",
+    "lat": 19.2003,
+    "lng": 72.9636,
+    "address": "Placeholder address, Thane West",
+    "gmaps_link": "https://maps.google.com/?q=19.2003,72.9636",
+    "added_by": "seed"
+  },
+  {
+    "id": "nvm-library-01",
+    "name": "Sample Study Library, Nerul",
+    "type": "library",
+    "city": "navi_mumbai",
+    "lat": 19.0330,
+    "lng": 73.0169,
+    "address": "Placeholder address, Nerul, Navi Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0330,73.0169",
+    "added_by": "seed"
+  }
+]

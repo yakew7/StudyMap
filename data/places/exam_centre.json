@@ -1,0 +1,46 @@
+[
+  {
+    "id": "mum-exam_centre-01",
+    "name": "Sample SAT Centre, Bandra",
+    "type": "exam_centre",
+    "city": "mumbai",
+    "lat": 19.0596,
+    "lng": 72.8295,
+    "address": "Placeholder address, Bandra West, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.0596,72.8295",
+    "added_by": "seed"
+  },
+  {
+    "id": "mum-exam_centre-02",
+    "name": "Sample SAT Centre, Andheri",
+    "type": "exam_centre",
+    "city": "mumbai",
+    "lat": 19.1197,
+    "lng": 72.8468,
+    "address": "Placeholder address, Andheri East, Mumbai",
+    "gmaps_link": "https://maps.google.com/?q=19.1197,72.8468",
+    "added_by": "seed"
+  },
+  {
+    "id": "thn-exam_centre-01",
+    "name": "Sample Exam Centre, Ghodbunder Road",
+    "type": "exam_centre",
+    "city": "thane",
+    "lat": 19.2580,
+    "lng": 72.9710,
+    "address": "Placeholder address, Ghodbunder Road, Thane",
+    "gmaps_link": "https://maps.google.com/?q=19.2580,72.9710",
+    "added_by": "seed"
+  },
+  {
+    "id": "nvm-exam_centre-01",
+    "name": "Sample SAT Centre, Vashi",
+    "type": "exam_centre",
+    "city": "navi_mumbai",
+    "lat": 19.0760,
+    "lng": 73.0008,
+    "address": "Placeholder address, Sector 15, Vashi",
+    "gmaps_link": "https://maps.google.com/?q=19.0760,73.0008",
+    "added_by": "seed"
+  }
+]
