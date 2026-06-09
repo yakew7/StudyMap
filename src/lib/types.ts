@@ -71,7 +71,7 @@ export interface PersonalPin {
   created_at: string;
 }
 
-export const BOARDS = ["IB", "IGCSE", "NEET", "JEE", "UPSC", "SAT"] as const;
+export const BOARDS = ["IB", "IGCSE", "SAT"] as const;
 
 export type Board = (typeof BOARDS)[number];
 

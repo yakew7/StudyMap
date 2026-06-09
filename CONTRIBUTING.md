@@ -54,12 +54,13 @@ adding a city never touches existing files). The committed record stops at
 - Do **not** add rating, review count, citation, or verified date to the JSON.
   Those go in the PR.
 
-## Resources and papers
+## Places and resources
 
-- Resources are links only. Add an entry to `data/resources/<board>.json`. The
-  site never hosts a file; `url` always points to an official source.
-- The app never ships past papers. The `papers/` folder is local and ignored by
-  git, so people keep their own files there for offline use.
+For a full walkthrough with field-by-field notes, commit format examples, and the quality gate checklist, see [`data/CONTRIBUTING.md`](data/CONTRIBUTING.md).
+
+In short:
+- Places go in `data/places/<type>.json` — one object per place, coordinates from Google Maps.
+- Resources are outbound links only (`data/resources/<board>.json`). Boards in scope: IB, IGCSE, SAT. `url` must point to an official source; the site never hosts files.
 
 ## Benefit guides
 

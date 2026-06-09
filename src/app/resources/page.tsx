@@ -6,7 +6,7 @@ import { ResourcesBrowser } from "@/components/resources/resources-browser";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Curated, cited links to past papers and official portals by board: IB, IGCSE, NEET, JEE, UPSC, SAT.",
+    "Curated, cited links to past papers and official portals for IB, IGCSE, and SAT.",
 };
 
 export default function ResourcesPage() {
@@ -18,9 +18,8 @@ export default function ResourcesPage() {
         Past papers and resources
       </h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        Curated, cited links to past papers and official portals by board. StudyMap
-        links out to the source; it never hosts files. To keep papers offline, see the{" "}
-        <span className="font-medium text-foreground">Papers</span> page.
+        Curated, cited links to past papers and official portals for IB, IGCSE, and SAT.
+        StudyMap links out to the source; it never hosts files.
       </p>
       <div className="mt-8">
         <ResourcesBrowser resources={resources} />

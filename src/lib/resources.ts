@@ -2,17 +2,11 @@ import type { Board, Resource, ResourceKind } from "@/lib/types";
 
 import ib from "../../data/resources/ib.json";
 import igcse from "../../data/resources/igcse.json";
-import neet from "../../data/resources/neet.json";
-import jee from "../../data/resources/jee.json";
-import upsc from "../../data/resources/upsc.json";
 import sat from "../../data/resources/sat.json";
 
 const ALL: Resource[] = [
   ...(ib as Resource[]),
   ...(igcse as Resource[]),
-  ...(neet as Resource[]),
-  ...(jee as Resource[]),
-  ...(upsc as Resource[]),
   ...(sat as Resource[]),
 ];
 

@@ -54,7 +54,7 @@ export function AccountPanel() {
           <CardTitle>Accounts are off on this build</CardTitle>
           <CardDescription>
             Sign-in and private pins need a Supabase project. Everything else
-            (map, resources, papers, benefits) works without it. To turn this on,
+            (map, resources, benefits) works without it. To turn this on,
             follow the setup in the supabase folder, then restart.
           </CardDescription>
         </CardHeader>

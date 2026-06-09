@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name}: student places, papers, and benefits`,
+    default: `${site.name}: student places and benefits`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
