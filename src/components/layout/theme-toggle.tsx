@@ -20,6 +20,7 @@ export function ThemeToggle() {
       size="icon"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      className={mounted && isDark ? "bg-muted text-foreground" : ""}
     >
       {mounted && isDark ? (
         <Sun className="size-5" />
