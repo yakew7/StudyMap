@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { Share2, SlidersHorizontal } from "lucide-react";
+import { Share2, SlidersHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
 
 import type { Place } from "@/lib/types";
@@ -91,9 +91,10 @@ export function PlacesMap({ places }: PlacesMapProps) {
 
       <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] flex justify-end sm:hidden">
         <Button
-          size="sm"
           variant="secondary"
-          className="pointer-events-auto shadow"
+          className="pointer-events-auto h-10 px-4 shadow"
+          aria-expanded={panelOpen}
+          aria-controls="map-filter-panel"
           onClick={() => setPanelOpen((open) => !open)}
         >
           <SlidersHorizontal className="size-4" />
@@ -101,10 +102,31 @@ export function PlacesMap({ places }: PlacesMapProps) {
         </Button>
       </div>
 
+      {/* Mobile backdrop: tap outside the sheet to close */}
+      {panelOpen && (
+        <div
+          className="absolute inset-0 z-[1000] bg-black/40 sm:hidden"
+          aria-hidden
+          onClick={() => setPanelOpen(false)}
+        />
+      )}
+
       <Card
+        id="map-filter-panel"
         data-open={panelOpen}
-        className="absolute left-3 top-3 z-[1000] hidden w-72 p-4 shadow-lg sm:block data-[open=true]:block"
+        className="absolute z-[1001] hidden p-4 shadow-lg data-[open=true]:block max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[72dvh] max-sm:w-full max-sm:overflow-y-auto max-sm:rounded-b-none max-sm:rounded-t-2xl max-sm:pb-[max(1rem,env(safe-area-inset-bottom))] sm:left-3 sm:top-3 sm:block sm:w-72"
       >
+        <div className="mb-2 flex items-center justify-between sm:hidden">
+          <p className="text-sm font-semibold">Filters</p>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-label="Close filters"
+            onClick={() => setPanelOpen(false)}
+          >
+            <X className="size-4" />
+          </Button>
+        </div>
         <FilterPanel
           filters={filters}
           onChange={setFilters}

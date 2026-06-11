@@ -16,7 +16,7 @@
     "type": "library",
     "city": "mumbai",
     "lat": 18.9652,
-    "lng": 72.8360,
+    "lng": 72.836,
     "address": "Fort, Mumbai 400001",
     "gmaps_link": "https://maps.google.com/?q=18.9652,72.8360",
     "added_by": "thunderblitzyt-eng"
@@ -81,8 +81,8 @@
     "name": "Teen Hath Naka Library",
     "type": "library",
     "city": "thane",
-    "lat": 19.2140,
-    "lng": 72.9680,
+    "lat": 19.214,
+    "lng": 72.968,
     "address": "Thane West, Thane 400601",
     "gmaps_link": "https://maps.google.com/?q=19.2140,72.9680",
     "added_by": "thunderblitzyt-eng"

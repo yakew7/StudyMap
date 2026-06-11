@@ -22,17 +22,6 @@
     "added_by": "shauryagangrade"
   },
   {
-    "id": "mum-train_station-03",
-    "name": "Bandra Railway Station",
-    "type": "train_station",
-    "city": "mumbai",
-    "lat": 19.0596,
-    "lng": 72.8295,
-    "address": "Bandra West, Mumbai 400050",
-    "gmaps_link": "https://maps.google.com/?q=19.0596,72.8295",
-    "added_by": "shauryagangrade"
-  },
-  {
     "id": "mum-train_station-04",
     "name": "Andheri Railway Station",
     "type": "train_station",
@@ -44,47 +33,14 @@
     "added_by": "shauryagangrade"
   },
   {
-    "id": "mum-train_station-05",
-    "name": "Grant Road Railway Station",
-    "type": "train_station",
-    "city": "mumbai",
-    "lat": 18.9821,
-    "lng": 72.8297,
-    "address": "Grant Road, Fort, Mumbai 400004",
-    "gmaps_link": "https://maps.google.com/?q=18.9821,72.8297",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "mum-train_station-06",
-    "name": "Borivali Railway Station",
-    "type": "train_station",
-    "city": "mumbai",
-    "lat": 19.2286,
-    "lng": 72.8071,
-    "address": "Borivali West, Mumbai 400092",
-    "gmaps_link": "https://maps.google.com/?q=19.2286,72.8071",
-    "added_by": "shauryagangrade"
-  },
-  {
     "id": "thn-train_station-01",
     "name": "Thane Railway Station",
     "type": "train_station",
     "city": "thane",
-    "lat": 19.1860,
-    "lng": 72.9750,
+    "lat": 19.186,
+    "lng": 72.975,
     "address": "Thane West, Thane 400601",
     "gmaps_link": "https://maps.google.com/?q=19.1860,72.9750",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "thn-train_station-02",
-    "name": "Kasara Railway Station",
-    "type": "train_station",
-    "city": "thane",
-    "lat": 19.2185,
-    "lng": 72.9602,
-    "address": "Kasturba Nagar, Thane 400604",
-    "gmaps_link": "https://maps.google.com/?q=19.2185,72.9602",
     "added_by": "shauryagangrade"
   },
   {
@@ -96,17 +52,6 @@
     "lng": 73.0008,
     "address": "Sector 30A, Vashi, Navi Mumbai 400703",
     "gmaps_link": "https://maps.google.com/?q=19.0653,73.0008",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "nvm-train_station-02",
-    "name": "Nerul Railway Station",
-    "type": "train_station",
-    "city": "navi_mumbai",
-    "lat": 19.0314,
-    "lng": 73.0246,
-    "address": "Sector 5, Nerul, Navi Mumbai 400706",
-    "gmaps_link": "https://maps.google.com/?q=19.0314,73.0246",
     "added_by": "shauryagangrade"
   }
 ]

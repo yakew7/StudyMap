@@ -4,8 +4,8 @@
     "name": "Passport Seva Kendra - Lower Parel",
     "type": "imp_locations",
     "city": "mumbai",
-    "lat": 18.9970,
-    "lng": 72.8300,
+    "lat": 18.997,
+    "lng": 72.83,
     "address": "Lower Parel, Mumbai 400013",
     "gmaps_link": "https://maps.google.com/?q=18.9970,72.8300",
     "added_by": "anaydhawan"
@@ -26,7 +26,7 @@
     "name": "Central Post Office - Fort",
     "type": "imp_locations",
     "city": "mumbai",
-    "lat": 18.9650,
+    "lat": 18.965,
     "lng": 72.8355,
     "address": "Fort, Mumbai 400001",
     "gmaps_link": "https://maps.google.com/?q=18.9650,72.8355",
@@ -41,28 +41,6 @@
     "lng": 72.8479,
     "address": "Dadar West, Mumbai 400028",
     "gmaps_link": "https://maps.google.com/?q=19.0176,72.8479",
-    "added_by": "anaydhawan"
-  },
-  {
-    "id": "mum-imp_locations-05",
-    "name": "Lilavati Hospital",
-    "type": "imp_locations",
-    "city": "mumbai",
-    "lat": 19.0596,
-    "lng": 72.8295,
-    "address": "Bandra West, Mumbai 400050",
-    "gmaps_link": "https://maps.google.com/?q=19.0596,72.8295",
-    "added_by": "anaydhawan"
-  },
-  {
-    "id": "mum-imp_locations-06",
-    "name": "Sir H.N. Reliance Foundation Hospital",
-    "type": "imp_locations",
-    "city": "mumbai",
-    "lat": 19.0821,
-    "lng": 72.8835,
-    "address": "Fort, Mumbai 400001",
-    "gmaps_link": "https://maps.google.com/?q=19.0821,72.8835",
     "added_by": "anaydhawan"
   },
   {
@@ -96,17 +74,6 @@
     "lng": 72.9781,
     "address": "Thane West, Thane 400601",
     "gmaps_link": "https://maps.google.com/?q=19.2183,72.9781",
-    "added_by": "anaydhawan"
-  },
-  {
-    "id": "nvm-imp_locations-01",
-    "name": "NMMC Hospital Vashi",
-    "type": "imp_locations",
-    "city": "navi_mumbai",
-    "lat": 19.0751,
-    "lng": 73.0024,
-    "address": "Sector 10A, Vashi, Navi Mumbai 400703",
-    "gmaps_link": "https://maps.google.com/?q=19.0751,73.0024",
     "added_by": "anaydhawan"
   }
 ]

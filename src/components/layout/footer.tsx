@@ -5,7 +5,9 @@ import { site } from "@/lib/site";
 
 const quickLinks = [
   { href: "/map", label: "Map" },
+  { href: "/calendar", label: "Exam Calendar" },
   { href: "/contribute", label: "Contribute" },
+  { href: "/docs/github-student-pack", label: "Student Pack Guide" },
 ];
 
 const legalLinks = [

@@ -2,7 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CircleMarker as LeafletCircleMarker } from "leaflet";
 import {
   CircleMarker,
@@ -36,6 +36,53 @@ function FlyTo({ to, zoom }: { to: LatLng; zoom: number }) {
     map.flyTo([to.lat, to.lng], zoom, { duration: 1 });
   }, [map, to, zoom]);
   return null;
+}
+
+/**
+ * Google-Maps-style scroll guard: plain scroll scrolls the page, Ctrl+scroll
+ * (Cmd on Mac) zooms the map. Shows a brief hint overlay otherwise.
+ * Touch pinch-zoom is unaffected.
+ */
+function ScrollZoomGuard() {
+  const map = useMap();
+  const [hint, setHint] = useState(false);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const container = map.getContainer();
+    map.scrollWheelZoom.disable();
+
+    function onWheel(event: WheelEvent) {
+      if (event.ctrlKey || event.metaKey) {
+        event.preventDefault();
+        if (!map.scrollWheelZoom.enabled()) map.scrollWheelZoom.enable();
+        setHint(false);
+      } else {
+        if (map.scrollWheelZoom.enabled()) map.scrollWheelZoom.disable();
+        setHint(true);
+        if (hideTimer.current) clearTimeout(hideTimer.current);
+        hideTimer.current = setTimeout(() => setHint(false), 1200);
+      }
+    }
+
+    function onKeyUp(event: KeyboardEvent) {
+      if (!event.ctrlKey && !event.metaKey) map.scrollWheelZoom.disable();
+    }
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+      window.removeEventListener("keyup", onKeyUp);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
+  }, [map]);
+
+  return (
+    <div className={`scroll-zoom-hint${hint ? " visible" : ""}`} aria-hidden>
+      Use Ctrl + scroll to zoom the map
+    </div>
+  );
 }
 
 /** A public place marker; opens its popup on load when it is the focused pin. */
@@ -80,7 +127,7 @@ export default function MapView({
     <MapContainer
       center={MMR_CENTER}
       zoom={zoom}
-      scrollWheelZoom={interactive}
+      scrollWheelZoom={false}
       dragging={interactive}
       doubleClickZoom={interactive}
       touchZoom={interactive}
@@ -93,6 +140,8 @@ export default function MapView({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+
+      {interactive && <ScrollZoomGuard />}
 
       {userLocation ? (
         <FlyTo to={userLocation} zoom={14} />

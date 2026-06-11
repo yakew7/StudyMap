@@ -22,17 +22,6 @@
     "added_by": "shauryagangrade"
   },
   {
-    "id": "mum-book_shop-03",
-    "name": "Strand Bookstall",
-    "type": "book_shop",
-    "city": "mumbai",
-    "lat": 18.9662,
-    "lng": 72.8362,
-    "address": "Horniman Circle, Fort, Mumbai 400001",
-    "gmaps_link": "https://maps.google.com/?q=18.9662,72.8362",
-    "added_by": "shauryagangrade"
-  },
-  {
     "id": "mum-book_shop-04",
     "name": "English Book Depot",
     "type": "book_shop",
@@ -55,58 +44,14 @@
     "added_by": "shauryagangrade"
   },
   {
-    "id": "thn-book_shop-01",
-    "name": "Jagdish Book Depot",
-    "type": "book_shop",
-    "city": "thane",
-    "lat": 19.2201,
-    "lng": 72.9789,
-    "address": "Ghodbunder Road, Thane West, Thane 400610",
-    "gmaps_link": "https://maps.google.com/?q=19.2201,72.9789",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "thn-book_shop-02",
-    "name": "Gurukrupa Book Depot",
-    "type": "book_shop",
-    "city": "thane",
-    "lat": 19.2185,
-    "lng": 72.9602,
-    "address": "Ram Maruti Road, Thane West, Thane 400604",
-    "gmaps_link": "https://maps.google.com/?q=19.2185,72.9602",
-    "added_by": "shauryagangrade"
-  },
-  {
     "id": "thn-book_shop-03",
     "name": "Crossword Bookstore - Thane",
     "type": "book_shop",
     "city": "thane",
-    "lat": 19.2140,
-    "lng": 72.9680,
+    "lat": 19.214,
+    "lng": 72.968,
     "address": "Thane West, Thane 400601",
     "gmaps_link": "https://maps.google.com/?q=19.2140,72.9680",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "nvm-book_shop-01",
-    "name": "Priya Bookstore",
-    "type": "book_shop",
-    "city": "navi_mumbai",
-    "lat": 19.0771,
-    "lng": 72.9986,
-    "address": "Sector 30A, Vashi, Navi Mumbai 400703",
-    "gmaps_link": "https://maps.google.com/?q=19.0771,72.9986",
-    "added_by": "shauryagangrade"
-  },
-  {
-    "id": "nvm-book_shop-02",
-    "name": "Krishna Bookstore",
-    "type": "book_shop",
-    "city": "navi_mumbai",
-    "lat": 19.0314,
-    "lng": 73.0246,
-    "address": "Nerul Railway Station, Nerul, Navi Mumbai 400706",
-    "gmaps_link": "https://maps.google.com/?q=19.0314,73.0246",
     "added_by": "shauryagangrade"
   }
 ]

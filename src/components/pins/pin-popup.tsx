@@ -52,7 +52,7 @@ export function PinPopup({ place }: PinPopupProps) {
           href={directionsUrl(place.lat, place.lng)}
           target="_blank"
           rel="noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80"
+          className="popup-cta flex-1 inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium text-white transition-colors"
         >
           <Navigation className="size-3.5" />
           Directions

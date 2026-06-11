@@ -49,3 +49,11 @@ next-env.d.ts
 /papers/*
 !/papers/.gitkeep
 !/papers/README.md
+
+# local scratch / extracted archives
+/brand-assets-zip/
+/src-zip/
+
+# ssh keys (never commit)
+id_*
+*.pub

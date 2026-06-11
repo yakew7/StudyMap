@@ -8,5 +8,6 @@ export const site = {
 
 export const navLinks = [
   { href: "/map", label: "Map" },
+  { href: "/calendar", label: "Calendar" },
   { href: "/contribute", label: "Contribute" },
 ] as const;
