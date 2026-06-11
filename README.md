@@ -2,7 +2,7 @@
 
 A crowdsourced map of student-important places across the Mumbai Metropolitan Region (Mumbai, Thane, Navi Mumbai). Open source, zero setup, free forever.
 
-**Live:** [studymap.vercel.app](https://studymap.vercel.app)  
+**Live:** [studymap.vercel.app](https://study-map-psi.vercel.app)  
 **Org:** migrating to [github.com/student-place](https://github.com/student-place)
 
 ---
