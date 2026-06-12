@@ -13,7 +13,7 @@ First public release.
 
 - Exam calendar page (`/calendar`): next 4 international SAT administrations,
   IB Nov 2026 + May 2027 sessions, Cambridge IGCSE June 2026 + Oct/Nov 2026
-  series — exam windows and result dates, each cited to the official board.
+  series: exam windows and result dates, each cited to the official board.
 - Student docs: GitHub Student Developer Pack guide
   (`/docs/github-student-pack`) with official citations.
 - Google-Maps-style scroll behavior on the map: plain scroll scrolls the page,

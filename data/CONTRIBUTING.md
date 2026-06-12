@@ -1,6 +1,6 @@
 # Adding places to StudyMap
 
-Places live in `data/places/<type>.json` — one file per place type, one JSON object per place.
+Places live in `data/places/<type>.json`, one file per place type, one JSON object per place.
 
 ## Pick the right file
 
@@ -32,12 +32,12 @@ Places live in `data/places/<type>.json` — one file per place type, one JSON o
 ```
 
 **Fields:**
-- `id` — `<city-prefix>-<type>-<number>`. Prefixes: `mum`, `thane`, `navi`. Increment from the highest existing number in the file.
-- `city` — one of: `mumbai`, `thane`, `navi_mumbai`
-- `type` — must match the filename exactly
-- `lat`/`lng` — from Google Maps (right-click pin, "What's here?"). Range: lat 18-20, lng 72-73.
-- `address` — optional, short, human-readable
-- `gmaps_link` — Google Maps share link (Share -> Copy link)
+- `id`: `<city-prefix>-<type>-<number>`. Prefixes: `mum`, `thane`, `navi`. Increment from the highest existing number in the file.
+- `city`: one of: `mumbai`, `thane`, `navi_mumbai`
+- `type`: must match the filename exactly
+- `lat`/`lng`: from Google Maps (right-click pin, "What's here?"). Range: lat 18-20, lng 72-73.
+- `address`: optional, short, human-readable
+- `gmaps_link`: Google Maps share link (Share -> Copy link)
 - Do not add rating, review count, or verified date to the JSON. Those go in the PR.
 
 ## Quality gate (must pass before merge)

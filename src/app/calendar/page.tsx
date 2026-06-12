@@ -28,7 +28,7 @@ export default function CalendarPage() {
       <p className="mt-8 text-xs text-muted-foreground">
         Dates last verified 11 June 2026 against College Board, IBO, and Cambridge
         International. Always confirm with your school or test centre before
-        planning — boards occasionally revise timetables.{" "}
+        planning. Boards occasionally revise timetables.{" "}
         <span className="font-medium">{EXAM_EVENTS.length} sessions tracked.</span>
       </p>
     </div>

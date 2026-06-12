@@ -9,9 +9,9 @@ A crowdsourced map of student-important places across the Mumbai Metropolitan Re
 
 ## What it does
 
-- **Places map** — find exam centres, libraries, book shops, stationery, internet cafes, train stations, and airports across the MMR. Filter by type and city.
-- **Contribute** — add places or fix data via GitHub pull request. No account needed.
-- **Legal** — privacy policy, terms of service, and data disclaimer for the crowdsourced dataset.
+- **Places map**: find exam centres, libraries, book shops, stationery, internet cafes, train stations, and airports across the MMR. Filter by type and city.
+- **Contribute**: add places or fix data via GitHub pull request. No account needed.
+- **Legal**: privacy policy, terms of service, and data disclaimer for the crowdsourced dataset.
 
 ## Quick start
 
@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. No environment variables needed — the map reads place data directly from `data/places/`.
+Open http://localhost:3000. No environment variables needed; the map reads place data directly from `data/places/`.
 
 ## Data schema
 
