@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { getPlaces } from "@/lib/places";
 import { PLACE_TYPES, PLACE_TYPE_LABELS, type PlaceType } from "@/lib/types";
@@ -7,6 +6,7 @@ import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MapPreview } from "@/components/home/map-preview";
+import { HeroParticles } from "@/components/home/hero-particles";
 
 // Full literal class strings so Tailwind's scanner keeps the marker utilities.
 const MARKER_DOT: Record<PlaceType, string> = {
@@ -25,8 +25,9 @@ export function Hero() {
   const total = places.length;
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-16 pt-12 sm:pt-16 lg:pb-24">
-      <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
+    <section className="relative isolate overflow-hidden">
+      <HeroParticles />
+      <div className="mx-auto grid w-full max-w-6xl items-stretch gap-10 px-4 pb-16 pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-12 lg:pb-24">
         <div className="flex flex-col justify-center lg:col-span-5">
           <p className="kicker">Mumbai &middot; Thane &middot; Navi Mumbai</p>
 
@@ -42,10 +43,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg">
-              <Link href="/map">
-                Open the map
-                <ArrowRight className="size-4" />
-              </Link>
+              <Link href="/map">Open the map</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href={site.repo} target="_blank" rel="noreferrer">
