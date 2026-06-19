@@ -1,52 +1,43 @@
+import { LegalPage, LegalSection } from "@/components/legal/legal-page";
+
 export const metadata = {
   title: "Privacy Policy",
 };
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-4xl font-bold tracking-tight">Privacy Policy</h1>
-        <p className="mt-2 text-muted-foreground">Last updated: June 2026</p>
+    <LegalPage title="Privacy Policy" updated="June 2026">
+      <LegalSection heading="What we collect">
+        <p>StudyMap collects minimal data. We track:</p>
+        <ul className="ml-4 list-disc space-y-1 text-muted-foreground">
+          <li>Places you add to the map (name, location, category)</li>
+          <li>Your GitHub username (if you contribute)</li>
+          <li>Anonymous, aggregate usage analytics (page views, no personal profile)</li>
+        </ul>
+      </LegalSection>
 
-        <div className="prose prose-sm dark:prose-invert mt-8 max-w-none space-y-6">
-          <section>
-            <h2 className="text-2xl font-semibold">What we collect</h2>
-            <p>
-              StudyMap collects minimal data. We track:
-            </p>
-            <ul className="mt-2 list-inside space-y-1 text-muted-foreground">
-              <li>Places you add to the map (name, location, category)</li>
-              <li>Your GitHub username (if you contribute)</li>
-              <li>Basic analytics (pages visited, not personal data)</li>
-            </ul>
-          </section>
+      <LegalSection heading="How we use it">
+        <p>
+          Contributed places power the public map. Your GitHub username is shown
+          as the contributor on entries you add. Usage analytics help us see
+          which features students actually use, so we can improve them.
+        </p>
+      </LegalSection>
 
-          <section>
-            <h2 className="text-2xl font-semibold">How we use it</h2>
-            <p>We use your data to:</p>
-            <ul className="mt-2 list-inside space-y-1 text-muted-foreground">
-              <li>Improve the map and user experience</li>
-              <li>Credit contributors</li>
-              <li>Prevent abuse</li>
-            </ul>
-          </section>
+      <LegalSection heading="What we do not do">
+        <p>
+          We do not sell your data, run third-party ad trackers, or require an
+          account to browse the map. The dataset is open, so anything you
+          contribute is public by design.
+        </p>
+      </LegalSection>
 
-          <section>
-            <h2 className="text-2xl font-semibold">Who we share it with</h2>
-            <p>
-              We don't sell or share your data. It's stored privately on our servers and shown on the public map only as you intended.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold">Your rights</h2>
-            <p>
-              You can request to see, edit, or delete your data anytime. Email us and we'll help.
-            </p>
-          </section>
-        </div>
-      </div>
-    </main>
+      <LegalSection heading="Your rights">
+        <p>
+          You can request to see, edit, or delete your data anytime. Email us and
+          we will help.
+        </p>
+      </LegalSection>
+    </LegalPage>
   );
 }
