@@ -192,9 +192,9 @@ html { scroll-behavior: smooth; }
 }
 
 ::-webkit-scrollbar              { width: 6px; }
-::-webkit-scrollbar-track        { background: #111; }
-::-webkit-scrollbar-thumb        { background: #333; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover  { background: #555; }
+::-webkit-scrollbar-track        { background: var(--secondary); }
+::-webkit-scrollbar-thumb        { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--muted-foreground); }
 
 @layer base {
   * {
@@ -277,8 +277,11 @@ html { scroll-behavior: smooth; }
    Leaflet theming — popups, controls, attribution follow app theme
    ================================================================ */
 
-/* Popup follows app theme (light/dark) via CSS vars */
-.leaflet-popup-content-wrapper {
+/* Popup follows app theme (light/dark) via CSS vars.
+   Scoped under .leaflet-container so these beat Leaflet's own default
+   white background, which otherwise wins on equal specificity because
+   leaflet.css loads after globals.css. */
+.leaflet-container .leaflet-popup-content-wrapper {
   background: var(--popover);
   color: var(--popover-foreground);
   border: 1px solid var(--border);
@@ -287,26 +290,26 @@ html { scroll-behavior: smooth; }
   padding: 0;
 }
 
-.leaflet-popup-content {
+.leaflet-container .leaflet-popup-content {
   margin: 14px 16px;
   font-family: var(--font-sans);
   line-height: 1.4;
   color: var(--popover-foreground);
 }
 
-.leaflet-popup-tip {
+.leaflet-container .leaflet-popup-tip {
   background: var(--popover);
   border: 1px solid var(--border);
   box-shadow: none;
 }
 
-/* Directions CTA: amber-700 background, white text (WCAG 4.5:1) */
+/* Directions CTA: follows theme primary (amber-700 light / amber-500 dark) */
 .leaflet-popup-content a.popup-cta {
-  background-color: #b45309;
-  color: #ffffff !important;
+  background-color: var(--primary);
+  color: var(--primary-foreground) !important;
 }
-.leaflet-popup-content a.popup-cta:hover  { background-color: #92400e; }
-.leaflet-popup-content a.popup-cta:active { background-color: #78350f; }
+.leaflet-popup-content a.popup-cta:hover  { background-color: color-mix(in oklab, var(--primary) 88%, black); }
+.leaflet-popup-content a.popup-cta:active { background-color: color-mix(in oklab, var(--primary) 78%, black); }
 
 .leaflet-container a.leaflet-popup-close-button {
   color: var(--muted-foreground);
