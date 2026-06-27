@@ -374,6 +374,51 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* Cluster pie icons — conic-gradient ring colored by place type, count
+   badge in the middle. Only renders where pins overlap. */
+.cluster-pie-icon {
+  background: transparent;
+  border: none;
+}
+.cluster-pie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px solid var(--card);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.cluster-pie span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68%;
+  height: 68%;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Map pin icons — teardrop/pointer shape for isolated markers */
+.pin-marker-icon {
+  background: transparent;
+  border: none;
+}
+.pin-marker {
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid var(--card);
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
 /* Ctrl+scroll hint overlay */
 .scroll-zoom-hint {
   position: absolute;

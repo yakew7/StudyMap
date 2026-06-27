@@ -2,23 +2,176 @@
 
 import "leaflet/dist/leaflet.css";
 
-import { useEffect, useRef, useState } from "react";
-import type { CircleMarker as LeafletCircleMarker } from "leaflet";
+import { useEffect, useMemo, useRef, useState } from "react";
+import L from "leaflet";
+import Supercluster from "supercluster";
 import {
   CircleMarker,
   MapContainer,
+  Marker,
   Popup,
   TileLayer,
   Tooltip,
   useMap,
 } from "react-leaflet";
 
-import type { Place } from "@/lib/types";
+import type { Place, PlaceType } from "@/lib/types";
+import { PLACE_TYPES } from "@/lib/types";
 import type { LatLng } from "@/lib/geo";
 import { MAP_CENTER, DEFAULT_ZOOM } from "@/lib/constants";
 import type { Bounds } from "@/lib/places";
 import { PLACE_TYPE_COLORS } from "@/lib/map";
 import { PinPopup } from "@/components/pins/pin-popup";
+
+type ClusterPointProps = { placeId: string; type: PlaceType };
+type ClusterAggProps = Record<PlaceType, number>;
+
+function emptyTypeCounts(): ClusterAggProps {
+  return Object.fromEntries(PLACE_TYPES.map((type) => [type, 0])) as ClusterAggProps;
+}
+
+/** Builds a pie-style divIcon: a conic-gradient ring colored by place type, count in the middle. */
+function clusterIcon(counts: ClusterAggProps, total: number): L.DivIcon {
+  let acc = 0;
+  const stops: string[] = [];
+  for (const type of PLACE_TYPES) {
+    const n = counts[type];
+    if (n === 0) continue;
+    const from = (acc / total) * 360;
+    acc += n;
+    const to = (acc / total) * 360;
+    stops.push(`${PLACE_TYPE_COLORS[type]} ${from}deg ${to}deg`);
+  }
+  const size = total < 10 ? 36 : total < 50 ? 44 : 54;
+  return L.divIcon({
+    html: `<div class="cluster-pie" style="width:${size}px;height:${size}px;background:conic-gradient(${stops.join(", ")});box-sizing:border-box;"><span>${total}</span></div>`,
+    className: "cluster-pie-icon",
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  });
+}
+
+function pinIcon(color: string): L.DivIcon {
+  return L.divIcon({
+    html: `<div class="pin-marker" style="background-color:${color};"></div>`,
+    className: "pin-marker-icon",
+    iconSize: [32, 40],
+    iconAnchor: [16, 40],
+    popupAnchor: [0, -40],
+  });
+}
+
+function boundsToBbox(bounds: L.LatLngBounds): [number, number, number, number] {
+  return [bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()];
+}
+
+/**
+ * Clusters nearby pins into pie-style circles (colored by place type) so
+ * dense areas don't render as a pile of overlapping markers. Isolated pins
+ * render exactly as the plain PlaceMarker below; only overlapping points
+ * change appearance, and clicking a cluster zooms into it.
+ */
+function ClusteredMarkers({
+  places,
+  focusId,
+}: {
+  places: Place[];
+  focusId?: string | null;
+}) {
+  const map = useMap();
+  const [bbox, setBbox] = useState<[number, number, number, number]>(() =>
+    boundsToBbox(map.getBounds()),
+  );
+  const [zoom, setZoom] = useState(() => Math.round(map.getZoom()));
+
+  useEffect(() => {
+    function update() {
+      setBbox(boundsToBbox(map.getBounds()));
+      setZoom(Math.round(map.getZoom()));
+    }
+    update();
+    map.on("moveend", update);
+    map.on("zoomend", update);
+    return () => {
+      map.off("moveend", update);
+      map.off("zoomend", update);
+    };
+  }, [map]);
+
+  const index = useMemo(() => {
+    const sc = new Supercluster<ClusterPointProps, ClusterAggProps>({
+      radius: 60,
+      maxZoom: 18,
+      map: (props) => {
+        const counts = emptyTypeCounts();
+        counts[props.type] += 1;
+        return counts;
+      },
+      reduce: (acc, props) => {
+        for (const type of PLACE_TYPES) acc[type] += props[type];
+      },
+    });
+    sc.load(
+      places.map((place) => ({
+        type: "Feature",
+        properties: { placeId: place.id, type: place.type },
+        geometry: { type: "Point", coordinates: [place.lng, place.lat] },
+      })),
+    );
+    return sc;
+  }, [places]);
+
+  const clusters = useMemo(() => index.getClusters(bbox, zoom), [index, bbox, zoom]);
+
+  return (
+    <>
+      {clusters.map((feature) => {
+        const [lng, lat] = feature.geometry.coordinates;
+        const properties = feature.properties;
+
+        if ("cluster" in properties) {
+          const { cluster_id: clusterId, point_count: count } = properties;
+          return (
+            <Marker
+              key={`cluster-${clusterId}`}
+              position={[lat, lng]}
+              icon={clusterIcon(properties, count)}
+              eventHandlers={{
+                click: () => {
+                  const expansionZoom = Math.min(
+                    index.getClusterExpansionZoom(clusterId),
+                    18,
+                  );
+                  map.flyTo([lat, lng], expansionZoom, { duration: 0.5 });
+                },
+              }}
+            />
+          );
+        }
+
+        const place = places.find((p) => p.id === properties.placeId);
+        if (!place) return null;
+        return (
+          <Marker
+            key={place.id}
+            position={[lat, lng]}
+            icon={pinIcon(PLACE_TYPE_COLORS[place.type])}
+            eventHandlers={{
+              click: () => {
+                if (focusId === place.id) return;
+                map.flyTo([place.lat, place.lng], 15, { duration: 0.5 });
+              },
+            }}
+          >
+            <Popup>
+              <PinPopup place={place} />
+            </Popup>
+          </Marker>
+        );
+      })}
+    </>
+  );
+}
 
 interface MapViewProps {
   places: Place[];
@@ -103,33 +256,6 @@ function ScrollZoomGuard() {
   );
 }
 
-/** A public place marker; opens its popup on load when it is the focused pin. */
-function PlaceMarker({ place, autoOpen }: { place: Place; autoOpen: boolean }) {
-  const ref = useRef<LeafletCircleMarker>(null);
-  useEffect(() => {
-    if (autoOpen) ref.current?.openPopup();
-  }, [autoOpen]);
-
-  return (
-    <CircleMarker
-      ref={ref}
-      center={[place.lat, place.lng]}
-      radius={8}
-      pathOptions={{
-        color: "#ffffff",
-        weight: 1.5,
-        fillColor: PLACE_TYPE_COLORS[place.type],
-        fillOpacity: 0.9,
-      }}
-    >
-      <Tooltip>{place.name}</Tooltip>
-      <Popup>
-        <PinPopup place={place} />
-      </Popup>
-    </CircleMarker>
-  );
-}
-
 export default function MapView({
   places,
   userLocation,
@@ -194,13 +320,7 @@ export default function MapView({
         </CircleMarker>
       )}
 
-      {places.map((place) => (
-        <PlaceMarker
-          key={place.id}
-          place={place}
-          autoOpen={place.id === focusId}
-        />
-      ))}
+      <ClusteredMarkers places={places} focusId={focusId} />
     </MapContainer>
     </div>
   );
