@@ -90,8 +90,8 @@ export default function ContributePage() {
           <CardContent>
             <p className="text-sm text-foreground/80">
               Email{" "}
-              <a href="mailto:dhawansanay@gmail.com" className="font-medium text-primary hover:underline">
-                dhawansanay@gmail.com
+              <a href="mailto:studentsuite0@gmail.com" className="font-medium text-primary hover:underline">
+                studentsuite0@gmail.com
               </a>{" "}
               or open a GitHub discussion.
             </p>

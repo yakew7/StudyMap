@@ -66,7 +66,7 @@ export function Footer() {
             <p className="font-medium text-foreground">Connect</p>
             <nav className="mt-4 flex flex-col gap-2">
               <a
-                href="mailto:dhawansanay@gmail.com"
+                href="mailto:studentsuite0@gmail.com"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 Email

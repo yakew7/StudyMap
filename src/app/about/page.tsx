@@ -80,10 +80,10 @@ export default function AboutPage() {
           StudyMap is maintained by Anay Dhawan, a student, as an open-source
           project. Questions, corrections, and ideas are always welcome at{" "}
           <a
-            href="mailto:dhawansanay@gmail.com"
+            href="mailto:studentsuite0@gmail.com"
             className="font-medium text-primary hover:underline"
           >
-            dhawansanay@gmail.com
+            studentsuite0@gmail.com
           </a>{" "}
           or on GitHub.
         </p>
