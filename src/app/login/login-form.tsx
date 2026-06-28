@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/client";
+import { site } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,7 +51,10 @@ export function LoginForm() {
   }
 
   async function handleGoogle() {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+    // Use the explicit env var for local dev (http://localhost:3000),
+    // fall back to the hardcoded canonical domain so any auto-assigned
+    // Vercel URL never leaks into the OAuth redirectTo.
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? site.url;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
