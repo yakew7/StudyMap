@@ -2,8 +2,14 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+// Always redirect to the canonical domain after OAuth so that arriving via
+// any auto-assigned Vercel URL (e.g. studymapp-student-suite.vercel.app)
+// doesn't leave the user stranded on the wrong domain.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://studymapp.vercel.app";
+
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
@@ -28,9 +34,9 @@ export async function GET(request: Request) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(`${SITE_URL}${next}`);
     }
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_error`);
+  return NextResponse.redirect(`${SITE_URL}/login?error=auth_error`);
 }
