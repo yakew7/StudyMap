@@ -80,7 +80,7 @@ export function Navbar() {
               asChild
               className="hidden md:inline-flex gap-1.5"
             >
-              <Link href="/login">
+              <Link href={`/login?next=${encodeURIComponent(pathname)}`}>
                 <LogIn className="size-4" />
                 Sign in
               </Link>
@@ -119,7 +119,7 @@ export function Navbar() {
                   </button>
                 ) : (
                   <Link
-                    href="/login"
+                    href={`/login?next=${encodeURIComponent(pathname)}`}
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
