@@ -2,22 +2,22 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { Share2, SlidersHorizontal, X } from "lucide-react";
+import { ChevronUp, Search, SlidersHorizontal } from "lucide-react";
 import { toast } from "sonner";
 
 import type { Place, PlaceType } from "@/lib/types";
 import { PLACE_TYPES } from "@/lib/types";
 import { cityBounds, filterPlaces, getCities } from "@/lib/places";
-import { placesByDistance, formatDistance, type LatLng } from "@/lib/geo";
-import { PLACE_TYPE_LABELS } from "@/lib/types";
-import { directionsUrl } from "@/lib/map";
+import { placesByDistance, type LatLng } from "@/lib/geo";
 import { buildShareUrl, mapStateToSearch, parseMapState } from "@/lib/share";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { FilterPanel, type PlaceFilters } from "@/components/map/filter-panel";
 import { MapErrorBoundary } from "@/components/map/map-error-boundary";
-import { NearMeButton } from "@/components/map/near-me-button";
+import { MapPanel } from "@/components/map/map-panel";
+import { MapSheet, SHEET_SNAP_POINTS } from "@/components/map/map-sheet";
+import { NearMeFab } from "@/components/map/near-me-fab";
+import type { ResultRow } from "@/components/map/results-list";
+import type { PlaceFilters } from "@/components/map/filters";
 
 const MapView = dynamic(() => import("@/components/map/map-view"), {
   ssr: false,
@@ -43,26 +43,27 @@ export function PlacesMap({ places }: PlacesMapProps) {
     if (typeof window === "undefined") return null;
     return parseMapState(window.location.search).placeId ?? null;
   });
-  const [panelOpen, setPanelOpen] = React.useState(false);
   const [userLocation, setUserLocation] = React.useState<LatLng | null>(null);
   const [sortByDistance, setSortByDistance] = React.useState(false);
+  const [snap, setSnap] = React.useState<number | string | null>(
+    SHEET_SNAP_POINTS[0],
+  );
+  const [sheetOpen, setSheetOpen] = React.useState(false);
   const hydrated = React.useRef(false);
 
   const cities = React.useMemo(() => getCities(places), [places]);
 
-  // Mark hydrated after first paint so the URL-sync effect below doesn't
-  // overwrite the URL before state has settled.
   React.useEffect(() => {
     hydrated.current = true;
   }, []);
 
   // Debounce the search query so filtering doesn't run on every keystroke.
+  // Clearing the box applies immediately (0 ms); typing waits 250 ms.
   React.useEffect(() => {
-    if (!filters.query) {
-      setDebouncedQuery("");
-      return;
-    }
-    const timer = setTimeout(() => setDebouncedQuery(filters.query), 250);
+    const timer = setTimeout(
+      () => setDebouncedQuery(filters.query),
+      filters.query ? 250 : 0,
+    );
     return () => clearTimeout(timer);
   }, [filters.query]);
 
@@ -78,7 +79,12 @@ export function PlacesMap({ places }: PlacesMapProps) {
   }, [filters, focusId]);
 
   const visible = React.useMemo(
-    () => filterPlaces(places, { ...filters, query: debouncedQuery }),
+    () =>
+      filterPlaces(places, {
+        types: filters.types,
+        city: filters.city,
+        query: debouncedQuery,
+      }),
     [places, filters.types, filters.city, debouncedQuery],
   );
 
@@ -90,12 +96,40 @@ export function PlacesMap({ places }: PlacesMapProps) {
     return counts;
   }, [visible]);
 
-  // Fly the map to the selected city's bounding box, regardless of type filters,
-  // so picking a city always shows the whole city rather than just the visible types.
   const focusBounds = React.useMemo(
     () => (filters.city ? cityBounds(places, filters.city) : null),
     [places, filters.city],
   );
+
+  const byDistance = React.useMemo(() => {
+    if (!userLocation) return [];
+    return placesByDistance(visible, userLocation);
+  }, [visible, userLocation]);
+
+  // Build the results list: nearest-first when located, otherwise all visible.
+  const { rows, resultsHeader, resultsToggle } = React.useMemo(() => {
+    if (userLocation && byDistance.length > 0) {
+      const shown = sortByDistance ? byDistance : byDistance.slice(0, 5);
+      return {
+        rows: shown.map((p) => ({ place: p, distanceKm: p.distanceKm })) as ResultRow[],
+        resultsHeader: sortByDistance
+          ? `All ${byDistance.length}, nearest first`
+          : "Nearest to you",
+        resultsToggle:
+          byDistance.length > 5
+            ? {
+                label: sortByDistance ? "Show fewer" : "Show all",
+                onClick: () => setSortByDistance((s) => !s),
+              }
+            : null,
+      };
+    }
+    return {
+      rows: visible.map((place) => ({ place })) as ResultRow[],
+      resultsHeader: "All places",
+      resultsToggle: null,
+    };
+  }, [userLocation, byDistance, sortByDistance, visible]);
 
   function share() {
     const url = buildShareUrl({
@@ -109,124 +143,116 @@ export function PlacesMap({ places }: PlacesMapProps) {
       .catch(() => toast.error("Could not copy link"));
   }
 
-  const byDistance = React.useMemo(() => {
-    if (!userLocation) return [];
-    return placesByDistance(visible, userLocation);
-  }, [visible, userLocation]);
+  function onLocated(loc: LatLng) {
+    setUserLocation(loc);
+    setSnap(SHEET_SNAP_POINTS[0]);
+    setSheetOpen(true); // surface the nearest list once we have a location
+  }
 
-  const nearest = sortByDistance ? byDistance : byDistance.slice(0, 5);
+  function openSheet() {
+    setSnap(SHEET_SNAP_POINTS[0]);
+    setSheetOpen(true);
+  }
+
+  function selectPlace(place: Place) {
+    setFocusId(place.id);
+    setSheetOpen(false); // collapse the mobile sheet so the pin is visible
+  }
+
+  const panelProps = {
+    filters,
+    onFiltersChange: setFilters,
+    cities,
+    typeCounts,
+    resultCount: visible.length,
+    rows,
+    resultsHeader,
+    resultsEmptyHint: "No places match these filters. Try Reset.",
+    resultsToggle,
+    onSelectPlace: selectPlace,
+    onLocated,
+    onShare: share,
+  };
 
   return (
-    <div className="relative size-full overflow-hidden">
-      <MapErrorBoundary>
-        <MapView
-          places={visible}
-          userLocation={userLocation}
-          focusId={focusId}
-          focusBounds={focusBounds}
-        />
-      </MapErrorBoundary>
+    <div className="flex h-full w-full overflow-hidden">
+      {/* Desktop sidebar */}
+      <aside className="hidden w-[360px] shrink-0 flex-col border-r border-border bg-card p-4 lg:flex">
+        <MapPanel {...panelProps} showSearch showNearMe />
+      </aside>
 
-      <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] flex justify-end sm:hidden">
-        <Button
-          variant="secondary"
-          className="pointer-events-auto h-10 px-4 shadow"
-          aria-expanded={panelOpen}
-          aria-controls="map-filter-panel"
-          onClick={() => setPanelOpen((open) => !open)}
-        >
-          <SlidersHorizontal className="size-4" />
-          Filters
-        </Button>
-      </div>
+      {/* Map + mobile overlays */}
+      <div className="relative min-w-0 flex-1">
+        <MapErrorBoundary>
+          <MapView
+            places={visible}
+            userLocation={userLocation}
+            focusId={focusId}
+            focusBounds={focusBounds}
+          />
+        </MapErrorBoundary>
 
-      {/* Mobile backdrop: tap outside the sheet to close */}
-      {panelOpen && (
-        <div
-          className="absolute inset-0 z-[1000] bg-black/40 sm:hidden"
-          aria-hidden
-          onClick={() => setPanelOpen(false)}
-        />
-      )}
-
-      <Card
-        id="map-filter-panel"
-        data-open={panelOpen}
-        className="absolute z-[1001] hidden p-4 shadow-lg data-[open=true]:block max-sm:inset-x-0 max-sm:bottom-0 max-sm:max-h-[72dvh] max-sm:w-full max-sm:overflow-y-auto max-sm:rounded-b-none max-sm:rounded-t-2xl max-sm:pb-[max(1rem,env(safe-area-inset-bottom))] sm:left-3 sm:top-3 sm:block sm:w-72"
-      >
-        <div className="mb-2 flex items-center justify-between sm:hidden">
-          <p className="text-sm font-semibold">Filters</p>
-          <Button
-            size="sm"
-            variant="ghost"
-            aria-label="Close filters"
-            onClick={() => setPanelOpen(false)}
-          >
-            <X className="size-4" />
-          </Button>
-        </div>
-        <FilterPanel
-          filters={filters}
-          cities={cities}
-          onChange={setFilters}
-          resultCount={visible.length}
-          typeCounts={typeCounts}
-        />
-
-        <Separator className="my-3" />
-        <div className="flex gap-2">
-          <NearMeButton onLocated={setUserLocation} className="flex-1" />
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={share}
-            aria-label="Copy a shareable link to this view"
-          >
-            <Share2 className="size-4" />
-            Share
-          </Button>
-        </div>
-
-        {byDistance.length > 0 && (
-          <div className="mt-3 space-y-1.5">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-medium text-muted-foreground">
-                {sortByDistance
-                  ? `All ${byDistance.length} - nearest first`
-                  : "Nearest to you"}
-              </p>
-              <button
-                type="button"
-                className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
-                onClick={() => setSortByDistance((s) => !s)}
-              >
-                {sortByDistance ? "Show fewer" : "Show all"}
-              </button>
-            </div>
-            <ul className="space-y-1.5">
-              {nearest.map((place) => (
-                <li
-                  key={place.id}
-                  className="flex items-center justify-between gap-2 text-sm"
-                >
-                  <a
-                    href={directionsUrl(place.lat, place.lng)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="truncate hover:underline"
-                    title={`${place.name} (${PLACE_TYPE_LABELS[place.type]})`}
-                  >
-                    {place.name}
-                  </a>
-                  <span className="shrink-0 text-xs text-muted-foreground">
-                    {formatDistance(place.distanceKm)}
-                  </span>
-                </li>
-              ))}
-            </ul>
+        {/* Mobile top bar: persistent search + filters trigger */}
+        <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] flex gap-2 lg:hidden">
+          <div className="pointer-events-auto relative flex-1">
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search places..."
+              value={filters.query}
+              onChange={(e) => setFilters({ ...filters, query: e.target.value })}
+              aria-label="Search places by name or city"
+              className="h-10 bg-card pl-8 shadow-md"
+            />
           </div>
-        )}
-      </Card>
+          <Button
+            variant="secondary"
+            className="pointer-events-auto h-10 shrink-0 px-3 shadow-md"
+            onClick={openSheet}
+            aria-label="Open filters"
+          >
+            <SlidersHorizontal className="size-4" />
+            Filters
+          </Button>
+        </div>
+
+        {/* Mobile near-me FAB, lifted above the peek bar */}
+        <NearMeFab
+          onLocated={onLocated}
+          className="absolute bottom-20 right-4 z-[1000] lg:hidden"
+        />
+
+        {/* Mobile peek bar: always-visible results summary; tap to open sheet */}
+        <button
+          type="button"
+          onClick={openSheet}
+          aria-label="Open places and filters"
+          className="absolute inset-x-0 bottom-0 z-[1000] flex items-center justify-between border-t border-border bg-card px-4 py-3 text-left shadow-[0_-4px_16px_-8px_rgba(0,0,0,0.3)] lg:hidden"
+        >
+          <span className="text-sm font-semibold text-foreground">
+            {visible.length} {visible.length === 1 ? "place" : "places"} shown
+          </span>
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            {userLocation ? "Nearest" : "Browse"}
+            <ChevronUp className="size-4" />
+          </span>
+        </button>
+
+        {/* Mobile bottom sheet */}
+        <MapSheet
+          open={sheetOpen}
+          onOpenChange={setSheetOpen}
+          snap={snap}
+          onSnapChange={setSnap}
+        >
+          <MapPanel
+            {...panelProps}
+            showSearch={false}
+            showNearMe={false}
+            scrollChips
+          />
+        </MapSheet>
+      </div>
     </div>
   );
 }

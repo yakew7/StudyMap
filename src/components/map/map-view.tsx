@@ -3,6 +3,7 @@
 import "leaflet/dist/leaflet.css";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 import L from "leaflet";
 import Supercluster from "supercluster";
 import {
@@ -185,12 +186,21 @@ interface MapViewProps {
   zoom?: number;
 }
 
-/** Eases the map to a coordinate when it changes. */
-function FlyTo({ to, zoom }: { to: LatLng; zoom: number }) {
+/** Eases the map to the user's location when it is first set. */
+function FlyToUser({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
   useEffect(() => {
-    map.flyTo([to.lat, to.lng], zoom, { duration: 1 });
-  }, [map, to, zoom]);
+    map.flyTo([lat, lng], 14, { duration: 1 });
+  }, [map, lat, lng]);
+  return null;
+}
+
+/** Eases the map to a focused place whenever the focused id changes. */
+function FlyToPlace({ id, lat, lng }: { id: string; lat: number; lng: number }) {
+  const map = useMap();
+  useEffect(() => {
+    map.flyTo([lat, lng], 15, { duration: 1 });
+  }, [map, id, lat, lng]);
   return null;
 }
 
@@ -268,6 +278,11 @@ export default function MapView({
     ? places.find((place) => place.id === focusId)
     : undefined;
 
+  const { resolvedTheme } = useTheme();
+  // Muted CARTO basemap so the colored category pins read clearly against it.
+  // Dark matter in dark mode, Voyager (soft colour) in light mode.
+  const tileVariant = resolvedTheme === "dark" ? "dark_all" : "voyager";
+
   return (
     <div
       role={interactive ? "region" : "img"}
@@ -291,19 +306,25 @@ export default function MapView({
       className="size-full"
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        key={tileVariant}
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        url={`https://{s}.basemaps.cartocdn.com/rastertiles/${tileVariant}/{z}/{x}/{y}{r}.png`}
+        subdomains="abcd"
+        maxZoom={20}
+        detectRetina
       />
 
       {interactive && <ScrollZoomGuard />}
 
-      {userLocation ? (
-        <FlyTo to={userLocation} zoom={14} />
-      ) : focusPlace ? (
-        <FlyTo to={{ lat: focusPlace.lat, lng: focusPlace.lng }} zoom={15} />
-      ) : focusBounds ? (
+      {userLocation && (
+        <FlyToUser lat={userLocation.lat} lng={userLocation.lng} />
+      )}
+      {focusPlace && (
+        <FlyToPlace id={focusPlace.id} lat={focusPlace.lat} lng={focusPlace.lng} />
+      )}
+      {!userLocation && !focusPlace && focusBounds && (
         <FlyToBounds bounds={focusBounds} />
-      ) : null}
+      )}
 
       {userLocation && (
         <CircleMarker
