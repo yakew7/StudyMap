@@ -204,6 +204,27 @@ function FlyToPlace({ id, lat, lng }: { id: string; lat: number; lng: number }) 
   return null;
 }
 
+/** Fits the initial view to every place's extent, once, so the map opens
+ * showing the whole dataset instead of a fixed Mumbai-only crop. */
+function FitAllOnMount({ places }: { places: Place[] }) {
+  const map = useMap();
+  const fitted = useRef(false);
+  useEffect(() => {
+    if (fitted.current || places.length === 0) return;
+    fitted.current = true;
+    const lats = places.map((p) => p.lat);
+    const lngs = places.map((p) => p.lng);
+    map.fitBounds(
+      [
+        [Math.min(...lats), Math.min(...lngs)],
+        [Math.max(...lats), Math.max(...lngs)],
+      ],
+      { padding: [32, 32] },
+    );
+  }, [map, places]);
+  return null;
+}
+
 /** Eases the map to fit a bounding box, e.g. a selected city's pins. */
 function FlyToBounds({ bounds }: { bounds: Bounds }) {
   const map = useMap();
@@ -340,6 +361,9 @@ export default function MapView({
 
       <MapResizeHandler />
       {interactive && <ScrollZoomGuard />}
+      {interactive && !userLocation && !focusPlace && !focusBounds && (
+        <FitAllOnMount places={places} />
+      )}
 
       {userLocation && (
         <FlyToUser lat={userLocation.lat} lng={userLocation.lng} />
