@@ -3,7 +3,10 @@
 import * as React from "react";
 import { Drawer } from "vaul";
 
-export const SHEET_SNAP_POINTS = ["48%", "92%"] as const;
+// vaul snapPoints: a number is a fraction of container height (0-1); a
+// string is parsed as a literal pixel value. These must be numbers, not
+// percentage strings, or vaul silently mis-parses "48%" as 48px.
+export const SHEET_SNAP_POINTS = [0.48, 0.92] as const;
 
 interface MapSheetProps {
   open: boolean;
