@@ -5,6 +5,7 @@ import type { City, PlaceType } from "@/lib/types";
 import { PLACE_TYPE_COLORS } from "@/lib/map";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
   Select,
@@ -17,6 +18,7 @@ import {
 export interface PlaceFilters {
   types: PlaceType[];
   city: City | null;
+  query: string;
 }
 
 interface FilterPanelProps {
@@ -24,6 +26,7 @@ interface FilterPanelProps {
   cities: City[];
   onChange: (filters: PlaceFilters) => void;
   resultCount: number;
+  typeCounts: Record<PlaceType, number>;
 }
 
 function toggle<T>(list: T[], value: T): T[] {
@@ -37,11 +40,21 @@ export function FilterPanel({
   cities,
   onChange,
   resultCount,
+  typeCounts,
 }: FilterPanelProps) {
-  const allEmpty = filters.types.length === 0 && !filters.city;
+  const allEmpty = filters.types.length === 0 && !filters.city && !filters.query;
 
   return (
     <div className="flex max-h-[70vh] w-full flex-col gap-3 overflow-y-auto">
+      <Input
+        type="search"
+        placeholder="Search places..."
+        value={filters.query}
+        onChange={(e) => onChange({ ...filters, query: e.target.value })}
+        className="h-8 text-sm"
+        aria-label="Search places by name or city"
+      />
+
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold">
           {resultCount} {resultCount === 1 ? "place" : "places"}
@@ -51,7 +64,7 @@ export function FilterPanel({
             variant="ghost"
             size="sm"
             className="h-7 px-2 text-xs"
-            onClick={() => onChange({ types: [], city: null })}
+            onClick={() => onChange({ types: [], city: null, query: "" })}
           >
             Reset
           </Button>
@@ -97,7 +110,10 @@ export function FilterPanel({
               className="size-3 shrink-0 rounded-full"
               style={{ backgroundColor: PLACE_TYPE_COLORS[type] }}
             />
-            <span>{PLACE_TYPE_LABELS[type]}</span>
+            <span className="flex-1">{PLACE_TYPE_LABELS[type]}</span>
+            <span className="text-xs tabular-nums text-muted-foreground">
+              {typeCounts[type]}
+            </span>
           </label>
         ))}
       </fieldset>
