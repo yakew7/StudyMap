@@ -24,6 +24,7 @@ interface FilterPanelProps {
   cities: City[];
   onChange: (filters: PlaceFilters) => void;
   resultCount: number;
+  typeCounts: Record<PlaceType, number>;
 }
 
 function toggle<T>(list: T[], value: T): T[] {
@@ -37,6 +38,7 @@ export function FilterPanel({
   cities,
   onChange,
   resultCount,
+  typeCounts,
 }: FilterPanelProps) {
   const allEmpty = filters.types.length === 0 && !filters.city;
 
@@ -97,7 +99,10 @@ export function FilterPanel({
               className="size-3 shrink-0 rounded-full"
               style={{ backgroundColor: PLACE_TYPE_COLORS[type] }}
             />
-            <span>{PLACE_TYPE_LABELS[type]}</span>
+            <span className="flex-1">{PLACE_TYPE_LABELS[type]}</span>
+            <span className="text-xs tabular-nums text-muted-foreground">
+              {typeCounts[type]}
+            </span>
           </label>
         ))}
       </fieldset>

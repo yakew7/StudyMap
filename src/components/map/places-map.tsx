@@ -5,7 +5,8 @@ import dynamic from "next/dynamic";
 import { Share2, SlidersHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
 
-import type { Place } from "@/lib/types";
+import type { Place, PlaceType } from "@/lib/types";
+import { PLACE_TYPES } from "@/lib/types";
 import { cityBounds, filterPlaces, getCities } from "@/lib/places";
 import { placesByDistance, formatDistance, type LatLng } from "@/lib/geo";
 import { PLACE_TYPE_LABELS } from "@/lib/types";
@@ -66,6 +67,14 @@ export function PlacesMap({ places }: PlacesMapProps) {
     () => filterPlaces(places, filters),
     [places, filters],
   );
+
+  const typeCounts = React.useMemo(() => {
+    const counts = Object.fromEntries(
+      PLACE_TYPES.map((t) => [t, 0]),
+    ) as Record<PlaceType, number>;
+    for (const place of visible) counts[place.type]++;
+    return counts;
+  }, [visible]);
 
   // Fly the map to the selected city's bounding box, regardless of type filters,
   // so picking a city always shows the whole city rather than just the visible types.
@@ -145,6 +154,7 @@ export function PlacesMap({ places }: PlacesMapProps) {
           cities={cities}
           onChange={setFilters}
           resultCount={visible.length}
+          typeCounts={typeCounts}
         />
 
         <Separator className="my-3" />
