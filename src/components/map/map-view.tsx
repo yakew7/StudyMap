@@ -158,13 +158,14 @@ function ClusteredMarkers({
             position={[lat, lng]}
             icon={pinIcon(PLACE_TYPE_COLORS[place.type])}
             eventHandlers={{
-              click: () => {
+              click: (e) => {
+                L.DomEvent.stopPropagation(e);
                 if (focusId === place.id) return;
                 map.flyTo([place.lat, place.lng], 15, { duration: 0.5 });
               },
             }}
           >
-            <Popup>
+            <Popup autoClose={false} closeOnClick={false}>
               <PinPopup place={place} />
             </Popup>
           </Marker>
