@@ -331,6 +331,14 @@ html { scroll-behavior: smooth; }
   color: var(--foreground);
 }
 
+/* Zoom control overlaps the mobile search bar (both anchored top-left);
+   hide it below the lg breakpoint where pinch-to-zoom covers zooming. */
+@media (max-width: 1023.98px) {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}
+
 /* Zoom controls match cards */
 .leaflet-bar {
   border: 1px solid var(--border) !important;
