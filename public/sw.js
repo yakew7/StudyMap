@@ -44,7 +44,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   // Map tiles: cache-first with a capped store, so we never hoard the whole map.
-  if (url.hostname.endsWith("tile.openstreetmap.org")) {
+  if (url.hostname === "api.maptiler.com") {
     event.respondWith(
       (async () => {
         const cache = await caches.open(TILE_CACHE);
