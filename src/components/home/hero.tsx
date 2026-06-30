@@ -18,6 +18,7 @@ const MARKER_DOT: Record<PlaceType, string> = {
   internet_cafe: "bg-marker-internet-cafe",
   airport: "bg-marker-airport",
   train_station: "bg-marker-train-station",
+  repair_shop: "bg-marker-repair-shop",
 };
 
 export function Hero() {

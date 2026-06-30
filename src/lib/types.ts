@@ -7,6 +7,7 @@ export const PLACE_TYPES = [
   "internet_cafe",
   "airport",
   "train_station",
+  "repair_shop",
 ] as const;
 
 export type PlaceType = (typeof PLACE_TYPES)[number];
@@ -28,6 +29,7 @@ export const PLACE_TYPE_LABELS: Record<PlaceType, string> = {
   internet_cafe: "Internet cafe",
   airport: "Airport",
   train_station: "Train station",
+  repair_shop: "Repair shop",
 };
 
 /** Turns a city slug into a display label, e.g. "navi_mumbai" -> "Navi Mumbai". */

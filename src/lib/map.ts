@@ -14,6 +14,7 @@ export const PLACE_TYPE_COLORS: Record<PlaceType, string> = {
   internet_cafe: "#0369A1",
   airport: "#BE185D",
   train_station: "#4D7C0F",
+  repair_shop: "#DC2626",
 };
 
 /** Build a Google Maps directions deep-link to a coordinate. */

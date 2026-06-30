@@ -57,6 +57,7 @@
   --marker-internet-cafe:      #0369A1;
   --marker-airport:            #BE185D;
   --marker-train-station:      #4D7C0F;
+  --marker-repair-shop:        #DC2626;
 }
 
 /* ----------------------------------------------------------------
@@ -109,6 +110,7 @@
   --marker-internet-cafe:      #0369A1;
   --marker-airport:            #BE185D;
   --marker-train-station:      #4D7C0F;
+  --marker-repair-shop:        #DC2626;
 }
 
 /* ================================================================
@@ -157,6 +159,7 @@
   --color-marker-internet-cafe:      var(--marker-internet-cafe);
   --color-marker-airport:            var(--marker-airport);
   --color-marker-train-station:      var(--marker-train-station);
+  --color-marker-repair-shop:        var(--marker-repair-shop);
 
   /* next/font injects --font-inter, --font-space-grotesk, --font-jetbrains-mono
      onto <html> via className. See src/lib/fonts.ts */
