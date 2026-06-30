@@ -164,7 +164,7 @@ function ClusteredMarkers({
               },
             }}
           >
-            <Popup autoClose={false} closeOnClick={false}>
+            <Popup autoClose={false} autoPan={false} closeOnClick={false}>
               <PinPopup place={place} />
             </Popup>
           </Marker>
@@ -349,6 +349,7 @@ export default function MapView({
       keyboard={interactive}
       zoomControl={interactive}
       attributionControl={interactive}
+      closePopupOnClick={false}
       className="size-full"
     >
       <TileLayer
