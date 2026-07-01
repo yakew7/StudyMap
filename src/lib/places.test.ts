@@ -68,8 +68,16 @@ describe("filterPlaces", () => {
 });
 
 describe("getCities", () => {
-  it("returns every distinct city, sorted alphabetically", () => {
-    expect(getCities(FIXTURE)).toEqual(["mumbai", "navi_mumbai", "thane"]);
+  it("orders cities by the given preferred order, alphabetically after that for the rest", () => {
+    expect(getCities(FIXTURE, ["thane", "mumbai"])).toEqual(["thane", "mumbai", "navi_mumbai"]);
+  });
+
+  it("falls back to alphabetical order when no preferred order is given", () => {
+    expect(getCities(FIXTURE, [])).toEqual(["mumbai", "navi_mumbai", "thane"]);
+  });
+
+  it("defaults to studymap.config.ts's cities registry order", () => {
+    expect(getCities(FIXTURE)).toEqual(["mumbai", "thane", "navi_mumbai"]);
   });
 
   it("returns an empty array for no places", () => {
