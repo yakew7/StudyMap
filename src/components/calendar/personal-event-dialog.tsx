@@ -50,15 +50,21 @@ export function PersonalEventDialog({
   const [notes, setNotes] = React.useState("");
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [lastResetKey, setLastResetKey] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (!open) return;
-    setTitle(event?.title ?? "");
-    setDate(event?.date ?? defaultDate);
-    setCategory(event?.category ?? "deadline");
-    setNotes(event?.notes ?? "");
-    setError(null);
-  }, [open, event, defaultDate]);
+  // Re-fill the form during render (not an effect) each time the dialog
+  // opens, or opens for a different event, so there's no stale-data flash.
+  const resetKey = open ? event?.id ?? "new" : null;
+  if (resetKey !== lastResetKey) {
+    setLastResetKey(resetKey);
+    if (open) {
+      setTitle(event?.title ?? "");
+      setDate(event?.date ?? defaultDate);
+      setCategory(event?.category ?? "deadline");
+      setNotes(event?.notes ?? "");
+      setError(null);
+    }
+  }
 
   async function handleSave() {
     if (!title.trim() || !date) return;

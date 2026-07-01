@@ -73,8 +73,18 @@ export function PlacesMap({ places }: PlacesMapProps) {
   const [placeDialogOpen, setPlaceDialogOpen] = React.useState(false);
   const [editingPlace, setEditingPlace] = React.useState<UserPlaceRow | null>(null);
   const [homeDialogOpen, setHomeDialogOpen] = React.useState(false);
+  const [lastUserId, setLastUserId] = React.useState<string | null>(null);
 
   const cities = React.useMemo(() => getCities(places), [places]);
+
+  // Clear stale saved-places/home data as soon as the signed-in user changes,
+  // during render rather than an effect, so there's no stale-data flash.
+  const userId = user?.id ?? null;
+  if (userId !== lastUserId) {
+    setLastUserId(userId);
+    setSavedPlaces([]);
+    setHome(null);
+  }
 
   React.useEffect(() => {
     hydrated.current = true;
@@ -90,11 +100,7 @@ export function PlacesMap({ places }: PlacesMapProps) {
   }, []);
 
   React.useEffect(() => {
-    if (!user) {
-      setSavedPlaces([]);
-      setHome(null);
-      return;
-    }
+    if (!user) return;
     fetchUserPlaces().then(setSavedPlaces).catch(() => setSavedPlaces([]));
     fetchUserHome().then(setHome).catch(() => setHome(null));
   }, [user]);

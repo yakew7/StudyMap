@@ -36,14 +36,19 @@ export function UserHomeDialog({
   const [locating, setLocating] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [wasOpen, setWasOpen] = React.useState(false);
 
-  React.useEffect(() => {
-    if (!open) return;
-    setLabel(home?.label ?? "Home");
-    setLat(home ? String(home.lat) : "");
-    setLng(home ? String(home.lng) : "");
-    setError(null);
-  }, [open, home]);
+  // Re-fill the form during render (not an effect) each time the dialog
+  // opens, so there's no stale-data flash.
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setLabel(home?.label ?? "Home");
+      setLat(home ? String(home.lat) : "");
+      setLng(home ? String(home.lng) : "");
+      setError(null);
+    }
+  }
 
   function useCurrentLocation() {
     if (!navigator.geolocation) {

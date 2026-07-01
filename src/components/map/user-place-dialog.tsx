@@ -57,18 +57,24 @@ export function UserPlaceDialog({
   const [locating, setLocating] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [lastResetKey, setLastResetKey] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (!open) return;
-    setName(place?.name ?? "");
-    setType(place?.type ?? "library");
-    setCity(place ? place.city.replace(/_/g, " ") : "");
-    setLat(place ? String(place.lat) : "");
-    setLng(place ? String(place.lng) : "");
-    setAddress(place?.address ?? "");
-    setNote(place?.note ?? "");
-    setError(null);
-  }, [open, place]);
+  // Re-fill the form during render (not an effect) each time the dialog
+  // opens, or opens for a different place, so there's no stale-data flash.
+  const resetKey = open ? place?.id ?? "new" : null;
+  if (resetKey !== lastResetKey) {
+    setLastResetKey(resetKey);
+    if (open) {
+      setName(place?.name ?? "");
+      setType(place?.type ?? "library");
+      setCity(place ? place.city.replace(/_/g, " ") : "");
+      setLat(place ? String(place.lat) : "");
+      setLng(place ? String(place.lng) : "");
+      setAddress(place?.address ?? "");
+      setNote(place?.note ?? "");
+      setError(null);
+    }
+  }
 
   function useCurrentLocation() {
     if (!navigator.geolocation) {

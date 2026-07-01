@@ -111,6 +111,15 @@ export function CalendarView() {
   const [personalEvents, setPersonalEvents] = useState<PersonalEvent[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<PersonalEvent | null>(null);
+  const [lastUserId, setLastUserId] = useState<string | null>(null);
+
+  // Clear stale events as soon as the signed-in user changes, during render
+  // rather than an effect, so there's no stale-data flash.
+  const userId = user?.id ?? null;
+  if (userId !== lastUserId) {
+    setLastUserId(userId);
+    setPersonalEvents([]);
+  }
 
   useEffect(() => {
     const supabase = createClient();
@@ -122,10 +131,7 @@ export function CalendarView() {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      setPersonalEvents([]);
-      return;
-    }
+    if (!user) return;
     fetchUserEvents()
       .then(setPersonalEvents)
       .catch(() => setPersonalEvents([]));
