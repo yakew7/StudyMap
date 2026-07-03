@@ -49,15 +49,11 @@
 
   /* Map marker hex — color-blind safe, verified against deuteranopia,
      protanopia, tritanopia. */
-  --marker-stationery:         #D97706;
-  --marker-library:            #2563EB;
-  --marker-exam-centre:        #7C3AED;
-  --marker-imp-locations:      #0F766E;
-  --marker-book-shop:          #EA580C;
-  --marker-internet-cafe:      #0369A1;
-  --marker-airport:            #BE185D;
-  --marker-train-station:      #4D7C0F;
-  --marker-repair-shop:        #DC2626;
+  --marker-library:                    #2563EB;
+  --marker-imp-locations:              #0F766E;
+  --marker-airport:                    #BE185D;
+  --marker-sat-centre:                 #7C3AED;
+  --marker-foreign-lang-exam-centre:   #0891B2;
 }
 
 /* ----------------------------------------------------------------
@@ -102,15 +98,11 @@
   --sm-info-border:            rgba(96, 165, 250, 0.25);
 
   /* Markers unchanged — same hex reads well on dark map tiles */
-  --marker-stationery:         #D97706;
-  --marker-library:            #2563EB;
-  --marker-exam-centre:        #7C3AED;
-  --marker-imp-locations:      #0F766E;
-  --marker-book-shop:          #EA580C;
-  --marker-internet-cafe:      #0369A1;
-  --marker-airport:            #BE185D;
-  --marker-train-station:      #4D7C0F;
-  --marker-repair-shop:        #DC2626;
+  --marker-library:                    #2563EB;
+  --marker-imp-locations:              #0F766E;
+  --marker-airport:                    #BE185D;
+  --marker-sat-centre:                 #7C3AED;
+  --marker-foreign-lang-exam-centre:   #0891B2;
 }
 
 /* ================================================================
@@ -150,16 +142,12 @@
   --color-info-bg:                   var(--sm-info-bg);
   --color-info-border:               var(--sm-info-border);
 
-  /* Marker colors usable as bg-marker-library, border-marker-exam-centre, etc. */
-  --color-marker-stationery:         var(--marker-stationery);
-  --color-marker-library:            var(--marker-library);
-  --color-marker-exam-centre:        var(--marker-exam-centre);
-  --color-marker-imp-locations:      var(--marker-imp-locations);
-  --color-marker-book-shop:          var(--marker-book-shop);
-  --color-marker-internet-cafe:      var(--marker-internet-cafe);
-  --color-marker-airport:            var(--marker-airport);
-  --color-marker-train-station:      var(--marker-train-station);
-  --color-marker-repair-shop:        var(--marker-repair-shop);
+  /* Marker colors usable as bg-marker-library, border-marker-sat-centre, etc. */
+  --color-marker-library:                    var(--marker-library);
+  --color-marker-imp-locations:              var(--marker-imp-locations);
+  --color-marker-airport:                    var(--marker-airport);
+  --color-marker-sat-centre:                 var(--marker-sat-centre);
+  --color-marker-foreign-lang-exam-centre:   var(--marker-foreign-lang-exam-centre);
 
   /* next/font injects --font-inter, --font-space-grotesk, --font-jetbrains-mono
      onto <html> via className. See src/lib/fonts.ts */

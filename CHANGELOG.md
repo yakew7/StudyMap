@@ -5,6 +5,20 @@ All notable changes to StudyMap are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-07-03
+
+### Added
+
+- `sat_centre` as a dedicated place type (purple `#7C3AED`): SAT exam venues, separate from other exam types. Carries `exam` and `valid_till` metadata. Wired through type definitions, color tokens, CSS custom properties, Tailwind utilities, and the hero legend.
+- `foreign_lang_exam_centre` as a dedicated place type (cyan `#0891B2`): venues for IELTS, TOEFL, Goethe-Zertifikat, DELF, and other foreign-language examinations. Same metadata support as `sat_centre`.
+- `data/places/sat_centre.json`: 7 verified SAT centres in Mumbai (migrated from `exam_centre`, type updated).
+- `data/places/foreign_lang_exam_centre.json`: 2 Goethe-Institut / Max Mueller Bhavan locations (Mumbai + Pune, migrated from `exam_centre`, type updated).
+
+### Removed
+
+- `exam_centre` place type: replaced by the more specific `sat_centre` and `foreign_lang_exam_centre` types. Source data file (`data/places/exam_centre.json`) retained on disk for reference.
+- `book_shop`, `stationery`, `internet_cafe`, `train_station`, `repair_shop` place types: removed for scope clarity. Source data files retained on disk.
+
 ## [2.0.0] - 2026-07-01
 
 ### Added

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mum-foreign_lang_exam_centre-01",
+    "name": "Goethe-Institut / Max Mueller Bhavan Mumbai",
+    "type": "foreign_lang_exam_centre",
+    "city": "mumbai",
+    "lat": 18.9979,
+    "lng": 72.8227,
+    "address": "8th Floor, Urmi Estate, 95 Ganpatrao Kadam Marg, Lower Parel West, Mumbai 400013",
+    "gmaps_link": "https://maps.google.com/?q=18.9979,72.8227",
+    "added_by": "anaydhawan",
+    "exam": "Goethe-Zertifikat (A1-C2)"
+  },
+  {
+    "id": "pun-foreign_lang_exam_centre-01",
+    "name": "Goethe-Institut / Max Mueller Bhavan Pune",
+    "type": "foreign_lang_exam_centre",
+    "city": "pune",
+    "lat": 18.5384,
+    "lng": 73.8772,
+    "address": "14/3-B, Boat Club Road, Pune 411001",
+    "gmaps_link": "https://maps.google.com/?q=18.5384,73.8772",
+    "added_by": "anaydhawan",
+    "exam": "Goethe-Zertifikat (A1-C2)"
+  }
+]

@@ -19,8 +19,8 @@ function place(overrides: Partial<Place> & { id: string }): Place {
 const FIXTURE: Place[] = [
   place({ id: "lib-1", name: "Central Library", type: "library", city: "mumbai", lat: 18.94, lng: 72.83 }),
   place({ id: "lib-2", name: "Thane Public Library", type: "library", city: "thane", lat: 19.19, lng: 72.97 }),
-  place({ id: "book-1", name: "Old Book Depot", type: "book_shop", city: "mumbai", lat: 18.95, lng: 72.84 }),
-  place({ id: "cafe-1", name: "Cyber Cafe", type: "internet_cafe", city: "navi_mumbai", lat: 19.03, lng: 73.02 }),
+  place({ id: "book-1", name: "Old Book Depot", type: "sat_centre", city: "mumbai", lat: 18.95, lng: 72.84 }),
+  place({ id: "cafe-1", name: "Cyber Cafe", type: "foreign_lang_exam_centre", city: "navi_mumbai", lat: 19.03, lng: 73.02 }),
 ];
 
 describe("filterPlaces", () => {
@@ -34,7 +34,7 @@ describe("filterPlaces", () => {
   });
 
   it("filters by multiple types", () => {
-    const result = filterPlaces(FIXTURE, { types: ["library", "book_shop"] });
+    const result = filterPlaces(FIXTURE, { types: ["library", "sat_centre"] });
     expect(result.map((p) => p.id)).toEqual(["lib-1", "lib-2", "book-1"]);
   });
 

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "mum-sat_centre-01",
+    "name": "Aditya Birla World Academy",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 18.9722,
+    "lng": 72.8203,
+    "address": "Vastu Shilp, JD Road Annexe, Gamadia Colony, Tardeo, Mumbai 400034",
+    "gmaps_link": "https://maps.google.com/?q=18.9722,72.8203",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-02",
+    "name": "American School of Bombay (BKC Campus)",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 19.0677,
+    "lng": 72.8707,
+    "address": "SF2, G Block, Bandra Kurla Complex, Bandra East, Mumbai 400051",
+    "gmaps_link": "https://maps.google.com/?q=19.0677,72.8707",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-03",
+    "name": "Cathedral and John Connon School",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 18.9361,
+    "lng": 72.8326,
+    "address": "6, Amit Keshav Nayak Marg, Fort, Mumbai 400001",
+    "gmaps_link": "https://maps.google.com/?q=18.9361,72.8326",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-04",
+    "name": "Don Bosco International School",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 19.0263,
+    "lng": 72.8572,
+    "address": "Nathalal Parekh Marg, Matunga East, Mumbai 400019",
+    "gmaps_link": "https://maps.google.com/?q=19.0263,72.8572",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-05",
+    "name": "B D Somani International School",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 18.9161,
+    "lng": 72.8199,
+    "address": "625, G.D. Somani Marg, Cuffe Parade, Mumbai 400005",
+    "gmaps_link": "https://maps.google.com/?q=18.9161,72.8199",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-06",
+    "name": "Anjuman Islam High School",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 18.9424,
+    "lng": 72.8342,
+    "address": "Dr Dadabhai Naoroji Road, Fort, Mumbai 400001",
+    "gmaps_link": "https://maps.google.com/?q=18.9424,72.8342",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  },
+  {
+    "id": "mum-sat_centre-07",
+    "name": "Bombay Teachers' Training College",
+    "type": "sat_centre",
+    "city": "mumbai",
+    "lat": 18.9246,
+    "lng": 72.8325,
+    "address": "Mahakavi Bhushan Road, Colaba, Mumbai 400001",
+    "gmaps_link": "https://maps.google.com/?q=18.9246,72.8325",
+    "added_by": "anaydhawan",
+    "exam": "SAT",
+    "valid_till": "2026-11-07"
+  }
+]

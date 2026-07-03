@@ -6,15 +6,11 @@ import type { PlaceType } from "@/lib/types";
  * and filter swatches.
  */
 export const PLACE_TYPE_COLORS: Record<PlaceType, string> = {
-  stationery: "#D97706",
   library: "#2563EB",
-  exam_centre: "#7C3AED",
   imp_locations: "#0F766E",
-  book_shop: "#EA580C",
-  internet_cafe: "#0369A1",
   airport: "#BE185D",
-  train_station: "#4D7C0F",
-  repair_shop: "#DC2626",
+  sat_centre: "#7C3AED",
+  foreign_lang_exam_centre: "#0891B2",
 };
 
 /** Build a Google Maps directions deep-link to a coordinate. */

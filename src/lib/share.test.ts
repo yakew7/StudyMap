@@ -5,7 +5,7 @@ import { buildShareUrl, mapStateToSearch, parseMapState, type MapShareState } fr
 describe("mapStateToSearch / parseMapState round-trip", () => {
   it("round-trips a fully populated state", () => {
     const state: MapShareState = {
-      types: ["library", "book_shop"],
+      types: ["library", "sat_centre"],
       city: "mumbai",
       placeId: "mum-library-01",
     };
