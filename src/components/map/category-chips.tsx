@@ -29,7 +29,7 @@ export function CategoryChips({
       className={cn(
         "gap-1.5",
         scroll
-          ? "flex overflow-x-auto pb-1 [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-24px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ? "flex overflow-x-auto py-1 [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-24px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           : "flex flex-wrap",
       )}
       role="group"
@@ -45,7 +45,7 @@ export function CategoryChips({
             aria-pressed={active}
             onClick={() => onToggle(type)}
             className={cn(
-              "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] font-medium transition-colors",
+              "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-[13px] font-medium transition-colors sm:px-3 sm:py-1.5",
               active
                 ? "border-transparent text-foreground"
                 : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
