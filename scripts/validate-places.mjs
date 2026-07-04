@@ -22,15 +22,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, "../data/places");
 
 const VALID_TYPES = new Set([
-  "book_shop",
   "library",
-  "exam_centre",
   "imp_locations",
-  "stationery",
-  "internet_cafe",
   "airport",
-  "train_station",
-  "repair_shop",
+  "sat_centre",
+  "foreign_lang_exam_centre",
 ]);
 
 // Valid geographic coordinate ranges. Catches impossible values (e.g. lat=200)
