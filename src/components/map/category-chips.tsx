@@ -26,12 +26,7 @@ export function CategoryChips({
 }: CategoryChipsProps) {
   return (
     <div
-      className={cn(
-        "gap-1.5",
-        scroll
-          ? "flex overflow-x-auto py-1 [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-24px),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          : "flex flex-wrap",
-      )}
+      className="flex flex-wrap gap-1.5"
       role="group"
       aria-label="Filter by place type"
     >
