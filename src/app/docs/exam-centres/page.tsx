@@ -12,7 +12,7 @@ import { PageContainer } from "@/components/layout/page-container";
 export const metadata: Metadata = {
   title: "Finding Exam Centres",
   description:
-    "How to use StudyMap to locate verified SAT centres in Mumbai and Goethe-Institut German exam centres in Mumbai and Pune.",
+    "How to use StudyMap to locate verified SAT centres and foreign language exam centres worldwide.",
 };
 
 export default function ExamCentresPage() {
@@ -29,8 +29,10 @@ export default function ExamCentresPage() {
         Finding Exam Centres
       </h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">
-        StudyMap lists exam centres for SAT, IB, and Cambridge IGCSE across
-        Mumbai, Thane, and Navi Mumbai. Here is how to use the map effectively.
+        StudyMap currently lists <strong>SAT centres</strong> and{" "}
+        <strong>foreign language exam centres</strong> (Goethe-Zertifikat,
+        IELTS, TOEFL, DELF). IB and Cambridge IGCSE centres are not listed
+        and there is no current plan to add them.
       </p>
 
       <div className="mt-8 space-y-4">
@@ -46,12 +48,13 @@ export default function ExamCentresPage() {
                 Map
               </Link>{" "}
               page. In the filter panel (left side on desktop, tap the filter icon on
-              mobile), check <span className="font-medium">Exam Centres</span> and
-              uncheck any categories you do not need.
+              mobile), select <span className="font-medium">SAT centre</span> for SAT
+              venues or <span className="font-medium">Foreign lang exam centre</span>{" "}
+              for Goethe, IELTS, TOEFL, and DELF venues.
             </p>
             <p>
-              The purple pins are exam centres. Each pin shows the name, city, and
-              address when tapped.
+              Purple pins are SAT centres. Cyan pins are foreign language exam centres.
+              Each pin shows the name, city, and address when tapped.
             </p>
           </CardContent>
         </Card>
@@ -81,11 +84,11 @@ export default function ExamCentresPage() {
               <Link href="/calendar" className="font-medium text-primary hover:underline">
                 Calendar
               </Link>{" "}
-              page shows upcoming exam windows and result dates for SAT, IB, and IGCSE.
-              Use the month navigation to check future months.
+              page shows upcoming SAT exam windows and result dates. Use the month
+              navigation to check future months.
             </p>
             <p className="text-xs text-muted-foreground">
-              Dates are sourced from the official boards and verified as of June 2026.
+              Dates are sourced from the College Board and verified as of June 2026.
               Always confirm with your school or test centre before planning travel.
             </p>
           </CardContent>
@@ -98,8 +101,8 @@ export default function ExamCentresPage() {
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-foreground/80">
             <p>
-              If you know of a centre that is not on the map, or an existing entry has
-              moved or closed, please report it.
+              If you know of a SAT or foreign language exam centre that is not on
+              the map, or an existing entry has moved or closed, please report it.
             </p>
             <Link
               href="/docs/contributing"
