@@ -8,7 +8,7 @@ import { isSupabaseConfigured } from "@/lib/supabase/config";
 // any auto-assigned Vercel URL (e.g. studymapp-student-suite.vercel.app)
 // doesn't leave the user stranded on the wrong domain.
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://studymapp.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://studyymap.com";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

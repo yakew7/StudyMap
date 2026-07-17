@@ -3,19 +3,22 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 
-const CANONICAL = "https://studymapp.vercel.app";
-// Vercel auto-assigns this URL based on the team name — it can't be deleted,
-// so we intercept every request on it and redirect to the canonical domain.
-const WRONG_DOMAIN = "studymapp-student-suite.vercel.app";
+const CANONICAL = "https://studyymap.com";
+// Legacy/auto-assigned Vercel URLs — can't be deleted, so we intercept every
+// request on them and redirect to the canonical custom domain.
+const WRONG_DOMAINS = new Set([
+  "studymapp.vercel.app",
+  "studymapp-student-suite.vercel.app",
+]);
 
 export async function proxy(request: NextRequest) {
   // Domain enforcement — must happen before anything else so that OAuth
-  // callbacks landing on the wrong Vercel domain get bounced to the right one
+  // callbacks landing on a wrong/legacy domain get bounced to the right one
   // before the auth code exchange runs.
   const host =
     request.headers.get("x-forwarded-host") ?? request.nextUrl.hostname;
 
-  if (host === WRONG_DOMAIN) {
+  if (WRONG_DOMAINS.has(host)) {
     const canonical = `${CANONICAL}${request.nextUrl.pathname}${request.nextUrl.search}`;
     return NextResponse.redirect(canonical, { status: 301 });
   }
@@ -28,29 +31,36 @@ export async function proxy(request: NextRequest) {
     return proxyResponse;
   }
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
-          proxyResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            proxyResponse.cookies.set(name, value, options),
-          );
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value),
+            );
+            proxyResponse = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              proxyResponse.cookies.set(name, value, options),
+            );
+          },
         },
       },
-    },
-  );
+    );
 
-  // Refresh the session so it doesn't expire mid-visit.
-  await supabase.auth.getUser();
+    // Refresh the session so it doesn't expire mid-visit.
+    await supabase.auth.getUser();
+  } catch (error) {
+    // A malformed Supabase env var or a transient auth-service outage must
+    // never take the whole site down — fail open and serve the request
+    // without a refreshed session instead of crashing the edge function.
+    console.error("proxy: Supabase session refresh failed", error);
+  }
 
   return proxyResponse;
 }
